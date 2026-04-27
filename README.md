@@ -7,20 +7,20 @@ through an Ocelot API Gateway.
 ## Architecture
 
 This frontend is part of a larger microservices ecosystem:  
-Browser (Angular SPA)
+Browser (Angular SPA)  
 │
 ▼
-API Gateway (Ocelot)
+API Gateway (Ocelot)  
 │
-├── Users Microservice    (PostgreSQL / Dapper)
-├── Products Microservice (MySQL / EF Core)
-└── Orders Microservice   (MongoDB / Repository pattern)
-│
-▼
-RabbitMQ (event-driven messaging)
+├── Users Microservice    (PostgreSQL / Dapper)  
+├── Products Microservice (MySQL / EF Core)  
+└── Orders Microservice   (MongoDB / Repository pattern)  
 │
 ▼
-Redis (cache)
+RabbitMQ (event-driven messaging)  
+│
+▼
+Redis (cache)  
 
 ## Tech Stack
 
