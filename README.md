@@ -1,27 +1,51 @@
-# ECommerce
+# eCommerce Frontend — Angular SPA
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+Angular 17 single-page application for a distributed eCommerce platform. This is the
+frontend layer of a .NET microservices system, communicating with backend services
+through an Ocelot API Gateway.
 
-## Development server
+## Architecture
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This frontend is part of a larger microservices ecosystem:  
+Browser (Angular SPA)
+│
+▼
+API Gateway (Ocelot)
+│
+├── Users Microservice    (PostgreSQL / Dapper)
+├── Products Microservice (MySQL / EF Core)
+└── Orders Microservice   (MongoDB / Repository pattern)
+│
+▼
+RabbitMQ (event-driven messaging)
+│
+▼
+Redis (cache)
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Angular 17 · TypeScript · RxJS · Reactive Forms · SCSS
+
+## Getting Started
+
+```bash
+npm install
+ng serve
+```
+
+App runs at `http://localhost:4200`.
+
+The backend stack must be running for the app to function. Backend services
+run via Docker Compose from separate repositories.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+ng build --configuration=production
+```
 
-## Running unit tests
+Output goes to `dist/`. Deployable to any static host.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Part of a portfolio project demonstrating .NET microservices with an Angular frontend.
