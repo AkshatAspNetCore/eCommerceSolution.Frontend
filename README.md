@@ -8,23 +8,23 @@ through an Ocelot API Gateway.
 
 This frontend is part of a larger microservices ecosystem:  
 Browser (Angular SPA)  
-│
-▼
+│  
+▼  
 API Gateway (Ocelot)  
-│
+│  
 ├── Users Microservice    (PostgreSQL / Dapper)  
 ├── Products Microservice (MySQL / EF Core)  
 └── Orders Microservice   (MongoDB / Repository pattern)  
-│
-▼
+│  
+▼  
 RabbitMQ (event-driven messaging)  
-│
-▼
+│  
+▼  
 Redis (cache)  
 
 ## Tech Stack
 
-Angular 17 · TypeScript · RxJS · Reactive Forms · SCSS
+Angular 17 · TypeScript · RxJS · Reactive Forms · CSS
 
 ## Getting Started
 
