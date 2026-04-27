@@ -12,9 +12,9 @@ Browser (Angular SPA)
 ▼  
 API Gateway (Ocelot)  
 │  
-├── Users Microservice    (PostgreSQL / Dapper)  
-├── Products Microservice (MySQL / EF Core)  
-└── Orders Microservice   (MongoDB / Repository pattern)  
+├── Users Microservice    (PostgreSQL)  
+├── Products Microservice (MySQL)  
+└── Orders Microservice   (MongoDB)  
 │  
 ▼  
 RabbitMQ (event-driven messaging)  
