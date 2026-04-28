@@ -43,6 +43,10 @@ App runs at `http://localhost:4200`.
 The backend stack must be running for the app to function. Backend services
 run via Docker Compose from separate repositories.
 
+## Learning project
+
+Built while working through ".NET Microservices with Azure DevOps & AKS | Basic to Master"(https://www.udemy.com/course/dot-net-microservices-ecommerce-project-azure-devops-kubernetes-aks/learn/lecture/45853823?start=1#overview) by Harsha Vardhan on Udemy.
+
 ## Build
 
 ```bash
