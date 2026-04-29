@@ -6,8 +6,6 @@ through an Ocelot API Gateway.
 
 ## Architecture
 
-## Architecture
-
 This frontend is part of a larger microservices ecosystem:
 
 ```
