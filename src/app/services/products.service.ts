@@ -33,7 +33,7 @@ export class ProductsService {
   }
 
   deleteProduct(productID: string): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.productsAPIURL}${productID}`);
+    return this.http.delete<boolean>(`${this.productsAPIURL}/${productID}`);
   }
 
   createProduct(newProductRequest: NewProductRequest): Observable<ProductResponse> {
