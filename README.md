@@ -8,22 +8,7 @@ through an Ocelot API Gateway.
 
 This frontend is part of a larger microservices ecosystem:
 
-```
-Browser (Angular SPA)
-       │
-       ▼
-API Gateway (Ocelot)
-       │
-       ├── Users Microservice    (PostgreSQL)
-       ├── Products Microservice (MySQL)
-       └── Orders Microservice   (MongoDB)
-                │
-                ▼
-         RabbitMQ (event-driven messaging)
-                │
-                ▼
-            Redis (cache)
-```  
+![eCommerce microservices architecture](angular_frontend_architecture.png)
 
 ## Tech Stack
 
