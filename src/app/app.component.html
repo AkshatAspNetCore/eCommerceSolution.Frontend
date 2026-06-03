@@ -12,28 +12,31 @@
     </a>
 
     <a mat-button [routerLink]="['/cart']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="usersService.isAuthenticated && usersService.isAdmin == false">
+      *ngIf="isLoggedIn">
       <mat-icon>shopping_cart</mat-icon>
       <span>Cart</span>
     </a>
 
     <a mat-button [routerLink]="['/orders']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="usersService.isAuthenticated && usersService.isAdmin == false">
+      *ngIf="isLoggedIn">
       <mat-icon>receipt</mat-icon>
       <span>Orders</span>
     </a>
 
+    <!-- TODO Step 10: Re-enable admin links behind role-based guard -->
+    <!--
     <a mat-button [routerLink]="['/admin', 'products']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="usersService.isAuthenticated && usersService.isAdmin">
+      *ngIf="isLoggedIn && isAdmin">
       <mat-icon>folder</mat-icon>
       <span>Products</span>
     </a>
 
     <a mat-button [routerLink]="['/admin', 'orders']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="usersService.isAuthenticated && usersService.isAdmin">
+      *ngIf="isLoggedIn && isAdmin">
       <mat-icon>receipt</mat-icon>
       <span>Orders</span>
     </a>
+    -->
 
     <span class="spacer"></span>
 
@@ -60,29 +63,22 @@
         </div>
       </form>
 
-      <a mat-button [routerLink]="['auth', 'register']" class="top-bar-button" routerLinkActive="active-link"
-        *ngIf="!usersService.isAuthenticated">
+      <button mat-button class="top-bar-button" (click)="signIn()"
+        *ngIf="!isLoggedIn">
         <mat-icon>person_add</mat-icon>
-        <span>Register</span>
-      </a>
-
-      <a mat-button [routerLink]="['auth', 'login']" class="top-bar-button" routerLinkActive="active-link"
-        *ngIf="!usersService.isAuthenticated">
-        <mat-icon>person</mat-icon>
-        <span>Login</span>
-      </a>
-
-
-      <button *ngIf="usersService.isAuthenticated" mat-button class="ml">
-        <mat-icon>person</mat-icon>
-        <span>{{usersService.currentusername}}</span>
+        <span>Sign up / Sign in</span>
       </button>
 
-      <a mat-button (click)="logout()" class="top-bar-button" routerLinkActive="active-link"
-        *ngIf="usersService.isAuthenticated">
+      <button *ngIf="isLoggedIn" mat-button class="ml">
+        <mat-icon>person</mat-icon>
+        <span>{{ userName }}</span>
+      </button>
+
+      <button mat-button (click)="signOut()" class="top-bar-button"
+        *ngIf="isLoggedIn">
         <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </a>
+        <span>Sign out</span>
+      </button>
     </mat-toolbar>
 
     <div class="page-container">

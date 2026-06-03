@@ -1,72 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { AuthenticationResponse } from '../models/authentication-response';
-import { Register } from '../models/register';
-import { environment } from '../../environment';
+import { MsalService } from '@azure/msal-angular';
 
-@Injectable({
-  providedIn: 'root',
-})
+/**
+ * Adapter around MSAL — keeps the old UsersService surface
+ * (isAuthenticated, isAdmin, currentusername, userID, logout)
+ * so the rest of the app keeps working unchanged after the
+ * migration from local auth to Microsoft Entra External ID.
+ */
+@Injectable({ providedIn: 'root' })
 export class UsersService {
-  private usersAPIURL: string = environment.usersAPIURL;
+  constructor(private msal: MsalService) {}
 
-  public isAuthenticated: boolean = false;
-  public isAdmin: boolean = false;
-  public currentusername: string | null = "";
-  public authResponse: AuthenticationResponse | null = null;
-
-  constructor(private http: HttpClient) {
-    // Check local storage for authentication status on application startup
-    this.isAuthenticated = !!localStorage.getItem('authToken');
-    const isAdminValue = localStorage.getItem('isAdmin');
-    this.isAdmin = isAdminValue !== null && isAdminValue !== undefined && isAdminValue.toLowerCase() === 'true';
-    this.currentusername = localStorage.getItem("currentusername");
-    if (localStorage.getItem("authResponse"))
-      this.authResponse = JSON.parse(localStorage.getItem("authResponse")!);
+  /** True if a user is signed in via MSAL. */
+  get isAuthenticated(): boolean {
+    return this.msal.instance.getAllAccounts().length > 0;
   }
 
-  register(register: Register): Observable<AuthenticationResponse> {
-    return this.http.post<AuthenticationResponse>(`${this.usersAPIURL}Auth/register`, register);
+  /** TODO Step 10: read role/group claim from the JWT. */
+  get isAdmin(): boolean {
+    return false;
   }
 
-  login(email: string, password: string): Observable<AuthenticationResponse> {
-    // Check if the provided email and password match the admin user
-    if (email === 'admin@example.com' && password === 'admin') {
-      // If it's the admin user, return a custom Observable
-      const adminUser: AuthenticationResponse = {
-        userID: 'admin_id',
-        username: 'Admin',
-        email: 'admin@example.com',
-        gender: 'male', // Add the appropriate gender for the admin user
-        token: 'admin_token',
-        success: true
-      };
-
-      return of(adminUser);
-    } else {
-      return this.http.post<AuthenticationResponse>(`${this.usersAPIURL}Auth/login`, { email, password });
-    }
+  /** Display name from the active MSAL account. */
+  get currentusername(): string | null {
+    const account = this.msal.instance.getActiveAccount();
+    return account?.name || account?.username || null;
   }
 
-  
-  setAuthStatus(authResponse: AuthenticationResponse, token: string, isAdmin: boolean, currentusername: string): void {
-    this.isAuthenticated = true;
-    this.isAdmin = isAdmin;
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('isAdmin', isAdmin.toString());
-    localStorage.setItem('currentusername', currentusername);
-    localStorage.setItem('authResponse', JSON.stringify(authResponse));
-    this.currentusername = currentusername;
-    this.authResponse = authResponse;
+  /** Entra Object ID of the signed-in user (oid claim). */
+  get userID(): string | null {
+    const account = this.msal.instance.getActiveAccount();
+    return account?.localAccountId || (account?.idTokenClaims?.['oid'] as string) || null;
   }
 
-
+  /** Triggers MSAL redirect-based sign-out. */
   logout(): void {
-    this.isAuthenticated = false;
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('currentusername');
-    this.authResponse = null;
+    this.msal.logoutRedirect();
   }
 }

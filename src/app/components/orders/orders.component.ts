@@ -30,7 +30,7 @@ export class OrdersComponent {
 
   ngOnInit(): void {
     //console.log(this.usersService.authResponse);
-    this.cartService.getOrdersByUserID(this.usersService.authResponse?.userID!)
+    this.cartService.getOrdersByUserID(this.usersService.userID!)
       .subscribe({
         next: (response: OrderResponse[]) => {
           this.isLoaded = true;
