@@ -16,22 +16,39 @@ export class UsersService {
     return this.msal.instance.getAllAccounts().length > 0;
   }
 
-  /** TODO Step 10: read role/group claim from the JWT. */
+ /** True if the signed-in user has the Admin app role from Entra. */
   get isAdmin(): boolean {
-    return false;
+  const account = this.msal.instance.getActiveAccount();
+  const claims = account?.idTokenClaims as Record<string, unknown> | undefined;
+  const roles = (claims?.['roles'] as string[] | undefined) ?? [];
+  return roles.includes('Admin');
   }
 
   /** Display name from the active MSAL account. */
   get currentusername(): string | null {
-    const account = this.msal.instance.getActiveAccount();
-    return account?.name || account?.username || null;
+     const account = this.msal.instance.getActiveAccount();
+     if (!account) return null;
+
+     // 'unknown' is Entra's placeholder when Display Name wasn't collected at sign-up
+     if (account.name && account.name !== 'unknown') {
+      return account.name;
+     }
+
+     const claims = account.idTokenClaims as Record<string, unknown> | undefined;
+     const given = claims?.['given_name'] as string | undefined;
+     const family = claims?.['family_name'] as string | undefined;
+     if (given || family) {
+       return `${given ?? ''} ${family ?? ''}`.trim();
+     }
+
+    return account.username || null;
   }
 
   /** Entra Object ID of the signed-in user (oid claim). */
-  get userID(): string | null {
-    const account = this.msal.instance.getActiveAccount();
-    return account?.localAccountId || (account?.idTokenClaims?.['oid'] as string) || null;
-  }
+get userID(): string | null {
+  const account = this.msal.instance.getActiveAccount();
+  return account?.localAccountId || (account?.idTokenClaims?.['oid'] as string) || null;
+}
 
   /** Triggers MSAL redirect-based sign-out. */
   logout(): void {

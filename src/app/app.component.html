@@ -12,31 +12,28 @@
     </a>
 
     <a mat-button [routerLink]="['/cart']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="isLoggedIn">
+      *ngIf="isLoggedIn && !isAdmin">
       <mat-icon>shopping_cart</mat-icon>
       <span>Cart</span>
     </a>
 
     <a mat-button [routerLink]="['/orders']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="isLoggedIn">
+      *ngIf="isLoggedIn && !isAdmin">
       <mat-icon>receipt</mat-icon>
       <span>Orders</span>
     </a>
 
-    <!-- TODO Step 10: Re-enable admin links behind role-based guard -->
-    <!--
-    <a mat-button [routerLink]="['/admin', 'products']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="isLoggedIn && isAdmin">
-      <mat-icon>folder</mat-icon>
-      <span>Products</span>
-    </a>
+ <a mat-button [routerLink]="['/admin', 'products']" class="side-bar-button" routerLinkActive="active-link"
+  *ngIf="isLoggedIn && isAdmin">
+  <mat-icon>folder</mat-icon>
+  <span>Admin Products</span>
+</a>
 
-    <a mat-button [routerLink]="['/admin', 'orders']" class="side-bar-button" routerLinkActive="active-link"
-      *ngIf="isLoggedIn && isAdmin">
-      <mat-icon>receipt</mat-icon>
-      <span>Orders</span>
-    </a>
-    -->
+<a mat-button [routerLink]="['/admin', 'orders']" class="side-bar-button" routerLinkActive="active-link"
+  *ngIf="isLoggedIn && isAdmin">
+  <mat-icon>receipt</mat-icon>
+  <span>Admin Orders</span>
+</a>
 
     <span class="spacer"></span>
 

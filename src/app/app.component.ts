@@ -101,6 +101,13 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  get isAdmin(): boolean {
+  const account = this.authService.instance.getActiveAccount();
+  const claims = account?.idTokenClaims as Record<string, unknown> | undefined;
+  const roles = (claims?.['roles'] as string[] | undefined) ?? [];
+  return roles.includes('Admin');
+  }
+
   search(): void {
     const searchStr = this.searchForm.value.searchStr;
     if (searchStr && searchStr.trim()) {
@@ -112,22 +119,27 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateAuthState(): void {
-    const accounts = this.authService.instance.getAllAccounts();
-    this.isLoggedIn = accounts.length > 0;
+private updateAuthState(): void {
+  const accounts = this.authService.instance.getAllAccounts();
+  this.isLoggedIn = accounts.length > 0;
 
-    if (this.isLoggedIn) {
-      if (!this.authService.instance.getActiveAccount()) {
-        this.authService.instance.setActiveAccount(accounts[0]);
-      }
-      this.userName =
-        this.authService.instance.getActiveAccount()?.name ||
-        this.authService.instance.getActiveAccount()?.username ||
-        null;
+  if (this.isLoggedIn) {
+    if (!this.authService.instance.getActiveAccount()) {
+      this.authService.instance.setActiveAccount(accounts[0]);
+    }
+    const account = this.authService.instance.getActiveAccount();
+
+    if (account?.name && account.name !== 'unknown') {
+      this.userName = account.name;
+    } else if (account?.username) {
+      this.userName = account.username.split('@')[0];
     } else {
       this.userName = null;
     }
+  } else {
+    this.userName = null;
   }
+}
 
   ngOnDestroy(): void {
     this.destroy$.next();
