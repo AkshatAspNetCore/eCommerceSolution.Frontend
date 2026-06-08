@@ -12,7 +12,7 @@ The following diagrams illustrate the architecture of the microservices:
 ![Products microservice architecture](App_images/all_products.JPG)
 
 ### Orders microservice
-![Orders microservice architecture](App_images/all_orders.jpg)
+![Orders microservice architecture](App_images/all_orders.JPG)
 
 ### Users microservice
 Authentication is handled by **Microsoft Entra External ID**.
