@@ -6,6 +6,17 @@ through an Ocelot API Gateway.
 
 ## Architecture
 
+The following diagrams illustrate the architecture of the microservices:
+
+### Products microservice
+![Products microservice architecture](App images/all_products.JPG)
+
+### Orders microservice
+![Orders microservice architecture](App images/all_orders.jpg)
+
+### Users microservice
+Authentication is handled by **Microsoft Entra External ID**.
+
 This frontend is part of a larger microservices ecosystem:
 
 ![eCommerce microservices architecture](angular_frontend_architecture.png)
