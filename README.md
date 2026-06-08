@@ -9,7 +9,7 @@ through an Ocelot API Gateway.
 The following diagrams illustrate the architecture of the microservices:
 
 ### Products microservice
-![Products microservice architecture](App images/all_products.jpg)
+![Products microservice architecture](App images/all_products.JPG)
 
 ### Orders microservice
 ![Orders microservice architecture](App images/all_orders.jpg)
