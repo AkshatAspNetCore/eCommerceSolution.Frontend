@@ -8,14 +8,15 @@ through an Ocelot API Gateway.
 
 The following diagrams illustrate the architecture of the microservices:
 
+### Users microservice
+Authentication is handled by **Microsoft Entra External ID**.
+![Users microservice architecture](App_images/Entra_ID_SignIn_SignUp.JPG)
+
 ### Products microservice
 ![Products microservice architecture](App_images/all_products.JPG)
 
 ### Orders microservice
 ![Orders microservice architecture](App_images/all_orders.JPG)
-
-### Users microservice
-Authentication is handled by **Microsoft Entra External ID**.
 
 This frontend is part of a larger microservices ecosystem:
 
