@@ -17,7 +17,7 @@ Authentication is handled by **Microsoft Entra External ID**.
 
 ### Orders microservice
 ![Orders microservice architecture](App_images/all_orders.JPG)
-### User Orders
+### User orders
 ![Orders microservice architecture](App_images/all_orders_user.JPG)
 
 This frontend is part of a larger microservices ecosystem:
