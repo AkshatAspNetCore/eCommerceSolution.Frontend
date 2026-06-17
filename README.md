@@ -30,15 +30,19 @@ Angular 17 · TypeScript · RxJS · Reactive Forms · CSS
 
 ## Getting Started
 
+You can use **PowerShell** or the **VS Code integrated terminal** (`` Ctrl+` `` to open it in VS Code). From the project root, run:
+
 ```bash
 npm install
-ng serve
+ng serve --ssl
 ```
+**Note:** `--ssl` serves the app over HTTPS with a self-signed certificate, so your browser may show a security warning on first run — this is expected for local development. HTTPS is required here because Entra ID (MSAL) authentication needs a secure origin for the redirect flow.
 
-App runs at `http://localhost:4200`.
+App runs at `https://localhost:4200`.
 
-The backend stack must be running for the app to function. Backend services
-run via Docker Compose from separate repositories.
+### Backend requirement
+
+The AKS cluster must be running with the backend services deployed (users, products, and orders microservices, the API gateway, and their databases) for the app to function. The frontend calls those services through Azure API Management, so requests will fail if the cluster or services are not up.
 
 ## Learning Project
 
