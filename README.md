@@ -35,7 +35,7 @@ Authentication is handled by **Microsoft Entra External ID**.
 
 This frontend is part of a larger microservices ecosystem:
 
-![eCommerce microservices architecture](angular_frontend_architecture_v1.png)
+![eCommerce microservices architecture](angular_frontend_architecture_v2.png)
 
 ## Tech Stack
 
